@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Order xmlns:tns="http://www.example.org/demo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/demo demo.xsd ">
+  <tns:Header>
+    <tns:OrderNr>0</tns:OrderNr>
+    <tns:Datum>2001-01-01</tns:Datum>
+    <tns:OrderTotaal>0.0</tns:OrderTotaal>
+  </tns:Header>
+  <tns:Data>
+    <tns:OrderRegel>
+      <tns:ProductID>DemoProd3</tns:ProductID>
+      <tns:Aantal>2</tns:Aantal>
+      <tns:Prijs>20.0</tns:Prijs>
+    </tns:OrderRegel>
+     <tns:OrderRegel>
+      <tns:ProductID>ExtraProd654</tns:ProductID>
+      <tns:Aantal>1</tns:Aantal>
+      <tns:Prijs>50.5</tns:Prijs>
+    </tns:OrderRegel>
+  </tns:Data>
+</tns:Order>

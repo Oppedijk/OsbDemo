@@ -1,3 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/demo" xmlns:tns="http://www.example.org/demo" elementFormDefault="qualified">
+
+    <element name="Order" type="tns:OrderType"></element>
+    
+    <complexType name="OrderType">
+    	<sequence>
+    		<element name="Header" type="tns:HeaderType"></element>
+    		<element name="Data" type="tns:DataType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="HeaderType">
+    	<sequence maxOccurs="1">
+    		<element name="OrderNr" type="int"></element>
+    		<element name="Datum" type="date"></element>
+    		<element name="OrderTotaal" type="decimal"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="DataType">
+    	<sequence>
+    		<element name="OrderRegel" type="tns:OrderRegelType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="OrderRegelType">
+    	<sequence maxOccurs="unbounded">
+    		<element name="ProductID" type="string"></element>
+    		<element name="Aantal" type="int"></element>
+    		<element name="Prijs" type="decimal"></element>
+    	</sequence>
+    </complexType>
 </schema>
