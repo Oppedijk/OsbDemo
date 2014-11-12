@@ -1,7 +1,7 @@
 (:: pragma bea:global-element-parameter parameter="$order1" element="ns0:Order" location="../xsd/order.xsd" ::)
 (:: pragma bea:global-element-return element="ns0:Order" location="../xsd/order.xsd" ::)
 
-declare namespace ns0 = "http://www.example.org/demo";
+declare namespace ns0 = "http://www.example.org/order";
 declare namespace xf = "http://tempuri.org/OsbDemoProject/transformation/OrderToOrder/";
 
 declare function xf:OrderToOrder($order1 as element(ns0:Order))

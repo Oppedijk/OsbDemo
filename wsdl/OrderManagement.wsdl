@@ -1,0 +1,54 @@
+<wsdl:definitions name="OrderManagement" targetNamespace="http://www.example.org/OrderManagement/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/OrderManagement/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/OrderManagement/" xmlns:Q1="http://www.example.org/order">
+            <xsd:import schemaLocation="../xsd/order.xsd" namespace="http://www.example.org/order"/>
+            <xsd:element name="OrderRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="in" type="Q1:OrderType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="OrderResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NewOperationRequest">
+    <wsdl:part element="tns:OrderRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NewOperationResponse">
+    <wsdl:part element="tns:OrderResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="OrderManagement">
+    <wsdl:operation name="NewOperation">
+      <wsdl:input message="tns:NewOperationRequest"/>
+      <wsdl:output message="tns:NewOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderManagementSOAP" type="tns:OrderManagement">
+
+  	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  	<wsdl:operation name="NewOperation">
+
+  		<soap:operation soapAction="http://www.example.org/OrderManagement/NewOperation"/>
+  		<wsdl:input>
+
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderManagement">
+    <wsdl:port binding="tns:OrderManagementSOAP" name="OrderManagementSOAP">
+      <soap:address location="http://localhost/OrderManagement"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
