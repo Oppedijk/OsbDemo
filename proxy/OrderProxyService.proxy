@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
-  <ser:coreEntry isProxy="true" isEnabled="true">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false">
+    <ser:description/>
     <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:wsdl ref="OsbDemoProject/wsdl/OrderManagement"/>
       <con:binding>
@@ -11,7 +12,6 @@
     </ser:binding>
     <ser:monitoring isEnabled="false">
       <ser:aggregationInterval>10</ser:aggregationInterval>
-      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
     </ser:monitoring>
     <ser:reporting>true</ser:reporting>
     <ser:logging isEnabled="true">
@@ -31,42 +31,24 @@
     <tran:provider-id>http</tran:provider-id>
     <tran:inbound>true</tran:inbound>
     <tran:URI>
-      <env:value>/OsbDemoProject/proxy/OrderProxyService</env:value>
+      <env:value>/OsbDemoProject/business/OrderProxyService</env:value>
     </tran:URI>
     <tran:inbound-properties/>
-    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
   <ser:router>
-    <con:pipeline type="request" name="PipelinePairNode1_request"/>
-    <con:pipeline type="response" name="PipelinePairNode1_response">
-      <con:stage name="stage1">
-        <con:context>
-          <con1:userNsDecl namespace="http://mijnNS/v1" prefix="x"/>
-        </con:context>
-        <con:actions>
-          <con2:replace varName="body" contents-only="true">
-            <con1:id>_ActionId-5063133746875962238-2bac6ad6.149a38568f1.-7f74</con1:id>
-            <con2:location>
-              <con1:xpathText>.</con1:xpathText>
-            </con2:location>
-            <con2:expr>
-              <con1:xqueryText><![CDATA[<x:ack>
-	<x:ordernr>12</x:ordernr>
-	<x:status>accepted</x:status>
-</x:ack>]]></con1:xqueryText>
-            </con2:expr>
-          </con2:replace>
-        </con:actions>
-      </con:stage>
-    </con:pipeline>
     <con:flow>
-      <con:pipeline-node name="PipelinePairNode1">
-        <con:request>PipelinePairNode1_request</con:request>
-        <con:response>PipelinePairNode1_response</con:response>
-      </con:pipeline-node>
+      <con:route-node name="RouteTo_OrderBusinessService">
+        <con:actions>
+          <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+            <conid1:id xmlns:conid1="http://www.bea.com/wli/sb/stages/config">_ActionId-5063133746875962238-2bac6ad6.149a38568f1.-7f06</conid1:id>
+            <con1:service ref="OsbDemoProject/business/OrderBusinessService" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:operation passThrough="true"/>
+          </con1:route>
+        </con:actions>
+      </con:route-node>
     </con:flow>
   </ser:router>
 </xml-fragment>
